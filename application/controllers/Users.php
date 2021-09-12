@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 	{
 	}
 
-    //insere se user_id nao for passado e atualiza se for passado
+    //insere se user_id nao for passado e atualiza se for passado teste
     public function insertOrUpdate(){
 
         $this->api->allowedMethods(['POST']);
