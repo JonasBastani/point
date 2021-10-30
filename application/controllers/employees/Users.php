@@ -46,7 +46,7 @@ class Users extends CI_Controller {
                 }
                 else{ // se não existe dados duplicados segue para o insert
                     $data['created_at'] = date("Y-m-d H:i:s"); // adiciona horario do insert em data
-                    $data['active'] = 1; // este atributo é 0 ou 1, 1 pra um usuario ativo e 0 para inativo, todo usuário inicia ativo
+                    $data['sratus'] = 1; // este atributo é 0 ou 1, 1 pra um usuario ativo e 0 para inativo, todo usuário inicia ativo
                     $this->users_my_model->insert($data); // faz o insert
                     $this->api->response(200, array('status' => true, 'data'=> $data, 'message' => "Usuário cadastrado com sucesso!")); //retorna sucesso
                 }
@@ -55,4 +55,26 @@ class Users extends CI_Controller {
             $this->api->response(400, array('status' => false, 'message' => "Dados insuficientes!")); // retorna mensagem de erro
         }
     }
+
+    public function login(){
+        $this->api->allowedMethods(['POST']);
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (!empty($data['email']) && !empty($data['password'])) {
+            $user = $this->users_my_model->where(['user_email'=> $data['email'], 'user_password'=> md5($data['password']), 'profile_id'=> 1])->get();
+            if(isset($user['user_id'])){
+                unset($user['user_password']); // removendo senha dp usuário dos dados para sessão e storage
+                $this->session->set_userdata($user);
+                $this->api->response(200, array('status' => true,'data'=>$user, 'message' => "Tudo certo!"));
+            }
+        }else{
+            $this->api->response(500, array('status' => false, 'message' => "Forneça e-mail e senha!"));
+        }
+    }
+
+    public function logoff(){
+        $this->session->sess_destroy();
+    }
+
+
 }
