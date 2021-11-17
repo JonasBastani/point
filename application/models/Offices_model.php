@@ -1,10 +1,10 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Remunerations_model extends MY_Model {
+class Offices_model extends MY_Model {
 
 	public function __construct() {
-		$this->table = 'remunerations';
-        $this->primary_key = 'remuneration_id';
+		$this->table = 'offices';
+        $this->primary_key = 'office_id';
         $this->return_as = 'array';
         $this->timestamps = TRUE;
 		
@@ -12,8 +12,6 @@ class Remunerations_model extends MY_Model {
 		$this->cache_prefix = 'mm';
         $this->delete_cache_on_save = true;
 
-		$this->has_one['user'] = array('Users_my_model', 'user_id', 'user_id');
-        $this->has_one['office'] = array('Offices_model', 'office_id', 'office_id');
 		
 		parent::__construct();
 	}
