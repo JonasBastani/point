@@ -14,6 +14,25 @@ class Users extends CI_Controller {
 	{
 	}
 
+    // retorna dados do usuário logado
+    public function getUserData(){
+        return $this->CI->session->userdata('user');
+    }
+
+    // verifica se o usuário está logado
+    public function checkLogin(){
+        $user = $this->CI->session->userdata('user');
+        if(!empty($user) && isset($user['profile_id'])){
+            if($user['profile_id']==1){
+                $this->api->response(200, array('status' => true, 'message' => "Acesso autorizado!")); 
+            }else{
+                $this->api->response(401, array('status' => false, 'message' => "Não autorizado!")); 
+            }
+        }else{
+            $this->api->response(401, array('status' => false, 'message' => "Não autorizado!")); 
+        }
+    }
+
     //insere se user_id nao for passado e atualiza se for passado teste
     public function insertOrUpdate(){
 
@@ -54,7 +73,10 @@ class Users extends CI_Controller {
         }else{ // caso data esteja vazio
             $this->api->response(400, array('status' => false, 'message' => "Dados insuficientes!")); // retorna mensagem de erro
         }
+
     }
+
+    
 
 
 }

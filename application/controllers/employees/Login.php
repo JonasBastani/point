@@ -14,7 +14,7 @@ class Login extends CI_Controller {
 	{
 	}
 
-    //insere se user_id nao for passado e atualiza se for passado teste
+    
 
     public function login(){
         $this->api->allowedMethods(['POST']);
@@ -24,7 +24,7 @@ class Login extends CI_Controller {
             $user = $this->users_my_model->where(['user_email'=> $data['email'], 'user_password'=> md5($data['password']), 'profile_id'=> 1])->get();
             if(isset($user['user_id'])){
                 unset($user['user_password']); // removendo senha dp usuário dos dados para sessão e storage
-                $this->session->set_userdata($user);
+                $this->session->set_userdata('user',$user);
                 $this->api->response(200, array('status' => true,'data'=>$user, 'message' => "Tudo certo!"));
             }
         }else{
