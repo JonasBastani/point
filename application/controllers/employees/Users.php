@@ -23,7 +23,7 @@ class Users extends CI_Controller {
     public function checkLogin(){
         $user = $this->getUserData();
         if(!empty($user) && isset($user['profile_id'])){
-            if($user['profile_id']==1){
+            if($user['profile_id']==1 || $user['profile_id']==2){
                 $this->api->response(200, array('status' => true, 'message' => "Acesso autorizado!")); 
             }else{
                 $this->api->response(401, array('status' => false, 'message' => "Não autorizado!")); 
