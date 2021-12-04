@@ -17,3 +17,4 @@ class Users_office_hour_model extends MY_Model {
 		parent::__construct();
 	}
 }
+

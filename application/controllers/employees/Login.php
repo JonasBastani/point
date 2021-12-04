@@ -21,14 +21,17 @@ class Login extends CI_Controller {
         $data = json_decode(file_get_contents("php://input"), true);
 
         if (!empty($data['email']) && !empty($data['password'])) {
-            $user = $this->users_my_model->where(['user_email'=> $data['email'], 'user_password'=> md5($data['password']), 'profile_id'=> 1])->get();
+            $this->db->where('profile_id<>', 3);
+            $user = $this->users_my_model->where(['user_email'=> $data['email'], 'user_password'=> md5($data['password'])])->get();
             if(isset($user['user_id'])){
                 unset($user['user_password']); // removendo senha dp usuário dos dados para sessão e storage
-                $this->session->set_userdata('user',$user);
+                $this->session->set_userdata('employee',$user);
                 $this->api->response(200, array('status' => true,'data'=>$user, 'message' => "Tudo certo!"));
+            }else{
+                $this->api->response(500, array('status' => false, 'message' => "Usuário e/ou senha incorretos!"));
             }
         }else{
-            $this->api->response(500, array('status' => false, 'message' => "Forneça e-mail e senha!"));
+            $this->api->response(500, array('status' => false, 'message' => "Usuário e/ou senha incorretos!"));
         }
     }
 

@@ -16,12 +16,12 @@ class Users extends CI_Controller {
 
     // retorna dados do usuário logado
     public function getUserData(){
-        return $this->CI->session->userdata('user');
+        return $this->CI->session->userdata('employee');
     }
 
     // verifica se o usuário está logado
     public function checkLogin(){
-        $user = $this->CI->session->userdata('user');
+        $user = $this->getUserData();
         if(!empty($user) && isset($user['profile_id'])){
             if($user['profile_id']==1){
                 $this->api->response(200, array('status' => true, 'message' => "Acesso autorizado!")); 
