@@ -18,3 +18,8 @@ Das tecnologias e liguagens
 
 Para a composição deste back-end estou utilizando PHP e MySql, juntamente com o framework php CodeIgniter, na sua versão 3.
 Mais informações sobre o CodeIgniter 3 em: https://codeigniter.com/userguide3/index.html
+
+*******************
+Estado
+*******************
+EM DESENVOLVIMENTO
