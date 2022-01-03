@@ -13,6 +13,8 @@ class Users_my_model extends MY_Model {
         $this->delete_cache_on_save = true;
 
 		$this->has_one['profile'] = array('Profiles_model', 'profile_id', 'profile_id');
+		$this->has_one['office'] = array('Offices_model', 'office_id', 'office_id');
+		$this->has_one['remuneration'] = array('Remunerations_model', 'remuneration_id', 'remuneration_id');
 		
 		parent::__construct();
 	}
